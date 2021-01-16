@@ -18,7 +18,7 @@ import yahoofinance.Stock;
 import yahoofinance.YahooFinance;
 
 public class Mainstock extends Frame {
-	//Asks for parameters passed onto stock interface
+	// Asks for parameters passed onto stock interface
 	public static class Terminal {
 		public Terminal() {
 			final String stocksurl = "yahoo.finance.com/api/calls/";
@@ -28,11 +28,10 @@ public class Mainstock extends Frame {
 				BigDecimal price = googprice.getQuote(true).getPrice();
 				System.out.println("Connected to Yahoo Finance API: Google's price today is: " + price);
 				Scanner input = new Scanner(System.in);
-				System.out.print("Would you like to customize your experience? (y/n):");
+				System.out.print("Would you like to customize your experience? (y/n): ");
 				String yn = input.next();
 				if (yn.equals("y")) {
-				}
-				else {
+				} else {
 					System.out.println("Your loss.");
 					try {
 						Thread.sleep(2000);
@@ -60,19 +59,36 @@ public class Mainstock extends Frame {
 						e.printStackTrace();
 					}
 				}
-				
-			
+				Scanner systeminput = new Scanner(System.in);
+				System.out.print("Would you like to run a compatibility check? (y/n): ");
+				String system = systeminput.nextLine();
+				if (system.equals("y")) {
+					String os = System.getProperty("os.name");
+					System.out.println("Youy are running " + os + ", A compatible system");
+				}
+				System.out.println("Launching...");
+				try {
+					Thread.sleep(400);
+					new Mainstock(name);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
+			
 	}
 
-	public Mainstock() {
+	public Mainstock(String name) {
 		setSize(1280, 720);
 		setLayout(null);
 		setVisible(true);
+		requestFocusInWindow();
+		setTitle(name + "'s Personalized Dashboard");
+		setResizable(false);
 		Button examplebuton = new Button("Buton");
 		examplebuton.setBounds(400, 360, 450, 430);
 		add(examplebuton);
