@@ -7,7 +7,11 @@
 package louistocks;
 
 import java.awt.Button;
+import java.awt.Color;
 import java.awt.Frame;
+import java.awt.TextField;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.IOException;
@@ -34,7 +38,7 @@ public class Mainstock extends Frame {
 				} else {
 					System.out.println("Your loss.");
 					try {
-						Thread.sleep(2000);
+						Thread.sleep(1000);
 						System.out.println("Exiting...");
 						Thread.sleep(2000);
 						System.exit(0);
@@ -79,24 +83,56 @@ public class Mainstock extends Frame {
 				e.printStackTrace();
 			}
 		}
-			
+
 	}
 
 	public Mainstock(String name) {
-		setSize(1280, 720);
-		setLayout(null);
-		setVisible(true);
-		requestFocusInWindow();
-		setTitle(name + "'s Personalized Dashboard");
-		setResizable(false);
-		Button examplebuton = new Button("Buton");
-		examplebuton.setBounds(400, 360, 450, 430);
-		add(examplebuton);
-		addWindowListener(new WindowAdapter() {
+		final Frame s = new Frame(name + "'s Personalized Dashboard");
+
+		final TextField tf = new TextField();
+		tf.setBounds(1100, 100, 60, 20);
+		Button b = new Button("Add");
+		b.setBounds(1180, 100, 40, 20);
+		b.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				final String data = tf.getText();
+				Button stockticker = new Button(data);
+				stockticker.setBounds(1180, 150, 60, 20);
+				s.add(stockticker);
+				stockticker.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						try {
+							Stock stock = YahooFinance.get(data);
+							BigDecimal price = stock.getQuote(true).getPrice();
+							
+							Button stockticker = new Button("Price"+price.toString());
+							stockticker.setBounds(640, 360, 200, 200);
+							s.add(stockticker);
+
+						} catch (IOException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
+					}
+				});
+			}
+		});
+		// adds and creates everything to window and sets visible
+		Color clr1 = new Color(27, 36, 42);
+		s.add(b);
+		s.add(tf);
+		s.setSize(1280, 720);
+		s.setLayout(null);
+		s.setBackground(clr1);
+		s.setResizable(false);
+		s.addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent we) {
 				System.exit(0);
 			}
 		});
+		s.setVisible(true);
+		//graph
+		
 	}
 
 	public static void main(String[] args) {
