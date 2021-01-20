@@ -17,19 +17,20 @@ import yahoofinance.quotes.stock.StockStats;
 
 public class Stocks {
 
+	@SuppressWarnings({ "resource", "unused" })
 	public Stocks() throws InterruptedException, IOException {
-		final String ANSI_RED = "\u001B[31m";
-		final String ANSI_GREEN = "\u001B[32m";
+		final String ANSI_RED = "";
+		final String ANSI_GREEN = "";
 		System.out.println("   _   _   _   _   _   _   _   _   _  ");
 		System.out.println("  / \\ / \\ / \\ / \\ / \\ / \\ / \\ / \\ / \\ ");
 		System.out.println(" ( S | t | o | c | k | - | C | L | I )");
 		System.out.println("  \\_/ \\_/ \\_/ \\_/ \\_/ \\_/ \\_/ \\_/ \\_/ ");
 		System.out.println("Powered by Yahoo.");
-		System.out.println("");
+		System.out.println(ANSI_RED + "");
 		Thread.sleep(1000);
 		System.out.println("Type 'help' for info on using this program.");
 		Thread.sleep(1000);
-		System.out.println("");
+		System.out.println(ANSI_GREEN + "");
 		System.out.println("Type 'exit' anytime to quit.");
 		boolean run = true;
 		while (run = true) {
@@ -58,11 +59,11 @@ public class Stocks {
 				// splits up input into separate strings to be parsed
 				String[] splitStr = input.split("\\s+");
 				Stock stock = YahooFinance.get(splitStr[0]);
-				System.out.println("error1");
+				System.out.println("i got it");
 				if (stock != null) {
 					// returns current price
-					System.out.println("error2");
-					if (splitStr[1] != null) {
+					if (splitStr.length > 1) {
+						System.out.println("i got it 2.0");
 						switch (splitStr[1]) {
 						case "-p":
 							BigDecimal price = stock.getQuote(true).getPrice();
