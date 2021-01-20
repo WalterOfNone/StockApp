@@ -52,11 +52,13 @@ public class Stocks {
 				System.out.println("'-d' Gets Adjusted Dividends");
 				System.out.println("'-n' Gets Company's Name");
 				System.out.println("'-v' Gets Stock Validity");
+				System.out.println("'-err' Gets error amount");
 				System.out.println("");
 			}
 
 			else {
 				// splits up input into separate strings to be parsed
+				int e = 0;
 				String[] splitStr = input.split("\\s+");
 				Stock stock = YahooFinance.get(splitStr[0]);
 				if (stock != null) {
@@ -99,17 +101,22 @@ public class Stocks {
 								System.out.println(splitStr[0] + ": " + valid);
 								break;
 							}
+						case "-err":
+							System.out.println("Errors: "+e);
 						default:
 							System.out.println("Error: Invalid Ticker");
+							e++;
 
 						}
 					}
 					else {
 						System.out.println("Error: action null");
+						e++;
 					}
 				}
 				if (stock == null) {
 					System.out.println("Invalid Action");
+					e++;
 				}
 
 			}
