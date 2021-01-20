@@ -59,11 +59,9 @@ public class Stocks {
 				// splits up input into separate strings to be parsed
 				String[] splitStr = input.split("\\s+");
 				Stock stock = YahooFinance.get(splitStr[0]);
-				System.out.println("i got it");
 				if (stock != null) {
 					// returns current price
 					if (splitStr.length > 1) {
-						System.out.println("i got it 2.0");
 						switch (splitStr[1]) {
 						case "-p":
 							BigDecimal price = stock.getQuote(true).getPrice();
