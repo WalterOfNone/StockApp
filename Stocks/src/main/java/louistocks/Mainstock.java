@@ -21,6 +21,7 @@ import java.util.Scanner;
 import yahoofinance.Stock;
 import yahoofinance.YahooFinance;
 
+//Do note this program is WIP and consists of spaghetti code
 public class Mainstock extends Frame {
 	// Asks for parameters passed onto stock interface
 	public static class Terminal {
@@ -83,8 +84,7 @@ public class Mainstock extends Frame {
 				e.printStackTrace();
 			}
 		}
-
-	}
+	};
 
 	public Mainstock(String name) {
 		final Frame s = new Frame(name + "'s Personalized Dashboard");
@@ -93,30 +93,18 @@ public class Mainstock extends Frame {
 		tf.setBounds(1100, 100, 60, 20);
 		Button b = new Button("Add");
 		b.setBounds(1180, 100, 40, 20);
+		int counter = 0;
+		int y = 100 + counter * 50;
 		b.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				final String data = tf.getText();
-				Button stockticker = new Button(data);
-				stockticker.setBounds(1180, 150, 60, 20);
-				s.add(stockticker);
-				stockticker.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-						try {
-							Stock stock = YahooFinance.get(data);
-							BigDecimal price = stock.getQuote(true).getPrice();
-							
-							Button stockticker = new Button("Price"+price.toString());
-							stockticker.setBounds(640, 360, 200, 200);
-							s.add(stockticker);
-
-						} catch (IOException e1) {
-							// TODO Auto-generated catch block
-							e1.printStackTrace();
-						}
-					}
-				});
+				String data = tf.getText();
+				Button btn = new Button(data);
+				btn.setBounds(1100,100,60,20);
+				s.add(btn);
+				s.setVisible(true);
 			}
 		});
+
 		// adds and creates everything to window and sets visible
 		Color clr1 = new Color(27, 36, 42);
 		s.add(b);
@@ -131,8 +119,8 @@ public class Mainstock extends Frame {
 			}
 		});
 		s.setVisible(true);
-		//graph
-		
+		// graph
+
 	}
 
 	public static void main(String[] args) {
