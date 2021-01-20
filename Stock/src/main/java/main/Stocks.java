@@ -48,7 +48,7 @@ public class Stocks {
 				System.out.println("Syntax used is [TICKER] + [ACTION]");
 				System.out.println("Actions: ");
 				System.out.println("'-p' Gets Current Price");
-				System.out.println("'-s' Gets Earnings Information");
+				System.out.println("'-e' Gets Earnings Information");
 				System.out.println("'-d' Gets Adjusted Dividends");
 				System.out.println("'-n' Gets Company's Name");
 				System.out.println("'-v' Gets Stock Validity");
@@ -81,7 +81,7 @@ public class Stocks {
 							}
 							break;
 						// returns earning info
-						case "-s":
+						case "-e":
 							StockStats ei = stock.getStats(true);
 							System.out.println("");
 							System.out.println(splitStr[0] + "'s earnings info: " + ei);
