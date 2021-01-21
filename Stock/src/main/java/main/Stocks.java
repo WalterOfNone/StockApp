@@ -33,6 +33,7 @@ public class Stocks {
 		System.out.println(ANSI_GREEN + "");
 		System.out.println("Type 'exit' anytime to quit.");
 		boolean run = true;
+		int e = 0;
 		while (run = true) {
 			System.out.print(":");
 			Scanner sc = new Scanner(System.in);
@@ -52,13 +53,18 @@ public class Stocks {
 				System.out.println("'-d' Gets Adjusted Dividends");
 				System.out.println("'-n' Gets Company's Name");
 				System.out.println("'-v' Gets Stock Validity");
-				System.out.println("'-err' Gets error amount");
+				System.out.println("'-err' Gets Error Amount");
+				System.out.println("'-c' Gets Change From  Market Open");
+				System.out.println("'-mc' Gets Market Capitalization");
+				System.out.println("'-eps' Gets Earnings Per Share");
+				System.out.println("'-open' Gets Opening Price");
+				System.out.println("'-yh' Gets Year High Price");
+				System.out.println("'-yl' Gets Year Low Price");
 				System.out.println("");
 			}
-
 			else {
 				// splits up input into separate strings to be parsed
-				int e = 0;
+				
 				String[] splitStr = input.split("\\s+");
 				Stock stock = YahooFinance.get(splitStr[0]);
 				if (stock != null) {
@@ -103,8 +109,40 @@ public class Stocks {
 							}
 						case "-err":
 							System.out.println("Errors: "+e);
+							break;
+						case "-c":
+							BigDecimal change = stock.getQuote().getChangeInPercent();
+							System.out.println("");
+							System.out.println(splitStr[0]+"'s change from market open: " +change+"%");
+							break;
+						case "-mc":
+							BigDecimal marketcap = stock.getStats().getMarketCap();
+							System.out.println("");
+							System.out.println(splitStr[0]+"'s market cap: $"+marketcap);
+							break;
+						case "-eps":
+							BigDecimal eps = stock.getStats().getEps();
+							System.out.println("");
+							System.out.println(splitStr[0]+"'s earnings per share: $"+eps);
+							break;
+						case "-open":
+							BigDecimal open = stock.getQuote().getOpen();
+							System.out.println("");
+							System.out.println(splitStr[0]+"'s opening price: $"+open);
+							break;
+						case "-yh":
+							BigDecimal yh = stock.getQuote().getYearHigh();
+							System.out.println("");
+							System.out.println(splitStr[0]+"'s year high: $"+yh);
+							break;
+						case "-yl":
+							BigDecimal yl = stock.getQuote().getYearLow();
+							System.out.println("");
+							System.out.println(splitStr[0]+"'s year low: $"+yl);
+							break;
+						
 						default:
-							System.out.println("Error: Invalid Ticker");
+							System.out.println("Error: Invalid Action");
 							e++;
 
 						}
